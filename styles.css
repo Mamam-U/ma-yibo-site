@@ -1,0 +1,644 @@
+:root {
+  --bg: #fff;
+  --surface: #fff;
+  --ink: #000;
+  --ink-inverse: #fff;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif-italic: Georgia, "Times New Roman", serif;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --radius-sm: 0.375rem;
+  --radius-pill: 999px;
+  --fs-ui: max(11px, 0.6875rem);
+  --fs-brand: max(11px, 0.75rem);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: clamp(11px, 0.833vw, 16px);
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+}
+
+/* ===== Fixed header ===== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: var(--space-5) var(--space-6);
+  background: transparent;
+  color: var(--ink-inverse);
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+
+.site-header a {
+  pointer-events: auto;
+}
+
+/* Was a 130x56 crop window for the logo video; the wordmark sizes itself. */
+.brand-frame {
+  flex: 0 0 auto;
+}
+
+.brand-lockup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.34rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand-name {
+  font-family: var(--font-serif-italic);
+  font-size: 1.3rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.brand-cn {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.26em;
+  /* Letter-spacing also trails the last glyph; pull it back so the block
+     stays flush with the wordmark above. */
+  margin-right: -0.26em;
+  white-space: nowrap;
+}
+
+.tagline-hero {
+  margin: 0;
+  max-width: 21.25rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: var(--fs-ui);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+}
+
+.menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: inherit;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: var(--fs-ui);
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+}
+
+.menu-word {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-word__b {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.account {
+  display: flex;
+  gap: var(--space-5);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: var(--fs-ui);
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+}
+
+.account a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===== Hero ===== */
+
+.hero {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  margin-top: 30vh;
+  background: #000;
+}
+
+.hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  outline: 0;
+}
+
+/* Fixed at the bottom of the viewport rather than tied to .hero: the hero
+   starts one third of the way down and overshoots the fold, so a scrim
+   inside it would be off-screen exactly when the CTA is over the clip. */
+.hero-scrim {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 15;
+  height: 32vh;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.74) 0%,
+    rgba(0, 0, 0, 0.48) 42%,
+    rgba(0, 0, 0, 0.18) 74%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+/* ===== Hero title ===== */
+
+.hero-title {
+  position: fixed;
+  z-index: 40;
+  left: var(--space-6);
+  right: var(--space-6);
+  bottom: calc(70vh + 1.5rem);
+  margin: 0;
+  color: var(--ink-inverse);
+  mix-blend-mode: difference;
+  pointer-events: none;
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.hero-title .italic {
+  font-family: var(--font-serif-italic);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* ===== Hero footer / CTA ===== */
+
+.hero-footer {
+  position: fixed;
+  bottom: 0;
+  left: var(--space-6);
+  right: var(--space-6);
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-5);
+  color: var(--ink-inverse);
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+
+.hero-footer a {
+  pointer-events: auto;
+}
+
+.cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  margin-left: auto;
+}
+
+.cta-copy {
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: var(--fs-ui);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+}
+
+.shop-now {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0 2.5rem;
+  background: #fff;
+  color: #fff;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-brand);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.shop-now__label {
+  mix-blend-mode: difference;
+}
+
+/* ===== Product card ===== */
+
+.product {
+  position: fixed;
+  bottom: var(--space-6);
+  left: var(--space-6);
+  z-index: 20;
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-4);
+  color: var(--ink-inverse);
+  opacity: 0;
+}
+
+.product-thumb {
+  position: relative;
+  width: calc(7rem * var(--card-scale, 1));
+  height: calc(7rem * var(--card-scale, 1));
+  flex-shrink: 0;
+  /* Matches the product shot's studio backdrop, so there is no white flash
+     between the card fading in and the image decoding. */
+  background: #eeeef1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.product-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  /* 白色文字压在浅色视频帧上会隐形：用 difference 让文字随背景自动反色
+     （与 .hero-title 同一手法）。只作用于文字区，不影响商品图本身。 */
+  mix-blend-mode: difference;
+}
+
+.product-info h2 {
+  margin: 0 0 0.625rem;
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.product-info .desc {
+  margin: 0 0 0.875rem;
+  max-width: 34rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: var(--fs-ui);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+}
+
+.product-info .price {
+  margin-top: auto;
+  font-size: 1.375rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* ===== Add button ===== */
+
+.add-btn {
+  position: fixed;
+  bottom: var(--space-6);
+  left: 0;
+  z-index: 20;
+  width: 3.375rem;
+  height: 3.375rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: #fff;
+  font-size: 1.625rem;
+  line-height: 1;
+  mix-blend-mode: difference;
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-btn__label {
+  mix-blend-mode: difference;
+  padding-bottom: 0.1875rem;
+  display: inline-block;
+  line-height: 1;
+}
+
+/* ===== Scroll track ===== */
+
+.scroll-spacer {
+  position: relative;
+  height: 220vh;
+  pointer-events: none;
+}
+
+/* ============================================================
+   Mobile (≤ 640px)
+   The base sheet above is desktop-only: no media queries, a 4-column
+   header that cannot fit a phone, and a rem scale that collapses to
+   its 11px floor on narrow viewports. Everything below is additive —
+   desktop rendering is untouched.
+   ============================================================ */
+
+@media (max-width: 640px) {
+  :root {
+    --space-4: 0.75rem;
+    --space-5: 1rem;
+    --space-6: 1.25rem;
+    --fs-ui: max(10px, 0.78rem);
+  }
+
+  /* Scale by viewport width, otherwise every rem-based size shrinks. */
+  html {
+    font-size: clamp(13px, 3.9vw, 17px);
+  }
+
+  /* --- Header: 4 columns do not fit; keep brand + primary menu --- */
+  .site-header {
+    align-items: center;
+    gap: var(--space-5);
+    padding: calc(0.9rem + env(safe-area-inset-top)) 1.25rem 0.9rem;
+  }
+
+  .tagline-hero,
+  .menu-secondary,
+  .account {
+    display: none;
+  }
+
+  .menu ul {
+    flex-direction: row;
+    gap: 0.9rem;
+  }
+
+  .brand-name {
+    font-size: 1.15rem;
+  }
+
+  .brand-cn {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    margin-right: -0.22em;
+  }
+
+  /* --- Hero: the portrait cut starts below the title and rises ---
+     A 9:16 close-up cannot carry overlaid type over the face, so the
+     phone layout keeps the headline on the white page above the frame
+     (same stacking as desktop, just a shorter stage). */
+  .hero {
+    margin-top: 24vh;
+  }
+
+  /* Bottom scrim: the portrait cut ends on a bright lime shirt, where
+     white difference-blended type would turn muddy. */
+  .hero-scrim {
+    height: 38vh;
+    height: 38dvh;
+  }
+
+  /* --- Hero title: sits just above the rising video ---
+     iOS Safari keeps the toolbar in play, so `vh` (large viewport) and the
+     JS-measured innerHeight disagree by ~60px; `dvh` tracks the visible one.
+     The second declaration simply wins wherever dvh is supported. */
+  .hero-title {
+    top: auto;
+    bottom: calc(76vh + 0.85rem);
+    bottom: calc(76dvh + 0.85rem);
+    left: var(--space-6);
+    right: var(--space-6);
+    font-size: 2.05rem;
+    line-height: 1.08;
+  }
+
+  /* --- CTA: stack the copy above the button --- */
+  .hero-footer {
+    left: var(--space-6);
+    right: var(--space-6);
+    bottom: calc(var(--space-5) + env(safe-area-inset-bottom));
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    /* Scrim already guarantees contrast; blending the whole group would
+       tint the white pill with whatever sits behind it. */
+    mix-blend-mode: normal;
+  }
+
+  .cta {
+    align-items: flex-start;
+    text-align: left;
+    margin-left: 0;
+    gap: 0.75rem;
+  }
+
+  .cta-copy {
+    max-width: 100%;
+  }
+
+  .shop-now {
+    align-self: flex-start;
+    min-height: 2.75rem;
+    padding: 0 1.5rem;
+  }
+
+  /* The pill is solid white here, so the desktop difference trick has
+     nothing to invert against — plain black type is the readable version. */
+  .shop-now {
+    color: #000;
+  }
+
+  .shop-now__label {
+    mix-blend-mode: normal;
+  }
+
+  /* --- Product card: smaller thumb, description clamped to 2 lines --- */
+  .product {
+    left: var(--space-6);
+    right: var(--space-6);
+    bottom: calc(var(--space-6) + env(safe-area-inset-bottom));
+    align-items: flex-end;
+    gap: 0.8rem;
+  }
+
+  .product-thumb {
+    width: calc(4.8rem * var(--card-scale, 1));
+    height: calc(4.8rem * var(--card-scale, 1));
+  }
+
+  /* Keep the copy clear of the floating add button in the corner. */
+  .product-info {
+    padding-right: 3.1rem;
+    /* Same call as the CTA: white type over the scrim, no blending. */
+    mix-blend-mode: normal;
+    color: var(--ink-inverse);
+  }
+
+  .product-info h2 {
+    margin-bottom: 0.35rem;
+    font-size: 1.05rem;
+  }
+
+  .product-info .desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    font-size: max(9px, 0.66rem);
+  }
+
+  .product-info .price {
+    font-size: 1.05rem;
+  }
+
+  /* --- Add button: corner-anchored, no inline offset on phones --- */
+  .add-btn {
+    left: auto;
+    right: var(--space-6);
+    bottom: calc(var(--space-6) + env(safe-area-inset-bottom));
+    width: 2.9rem;
+    height: 2.9rem;
+    font-size: 1.3rem;
+    /* Solid white disc, so drop the difference blend and print black. */
+    mix-blend-mode: normal;
+    color: #000;
+  }
+
+  .add-btn__label {
+    mix-blend-mode: normal;
+  }
+
+  /* Taller scroll track: phone viewports are short. */
+  .scroll-spacer {
+    height: 260vh;
+  }
+}
+
+/* --- Very small phones (≤ 380px) --- */
+@media (max-width: 380px) {
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .product-thumb {
+    width: calc(4rem * var(--card-scale, 1));
+    height: calc(4rem * var(--card-scale, 1));
+  }
+
+  .menu ul {
+    gap: 0.65rem;
+  }
+}
+
+/* --- Landscape phones: the desktop header eats five lines here, and the
+       headline has to clear the rising frame. --- */
+@media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+  .site-header {
+    align-items: center;
+    padding: 0.6rem 1.5rem;
+  }
+
+  .tagline-hero,
+  .menu-secondary,
+  .account {
+    display: none;
+  }
+
+  .menu ul {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .brand-name {
+    font-size: 1.05rem;
+  }
+
+  .brand-cn {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    margin-right: -0.18em;
+  }
+
+  .hero-title {
+    top: 20vh;
+    bottom: auto;
+    font-size: 1.5rem;
+  }
+
+  /* Solid type over the scrim beats blending on a 390px-tall canvas. */
+  .hero-footer {
+    mix-blend-mode: normal;
+  }
+
+  .shop-now {
+    color: #000;
+  }
+
+  .shop-now__label {
+    mix-blend-mode: normal;
+  }
+
+  .product {
+    bottom: var(--space-4);
+  }
+
+  .product-thumb {
+    width: calc(3.4rem * var(--card-scale, 1));
+    height: calc(3.4rem * var(--card-scale, 1));
+  }
+
+  .product-info h2,
+  .product-info .price {
+    font-size: 1.05rem;
+  }
+
+  .add-btn {
+    bottom: var(--space-4);
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+}
